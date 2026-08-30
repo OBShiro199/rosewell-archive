@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:#f6f6f4;font-family:'Geist',system-ui,sans-serif;letter-spacing:-0.012em;color:#141414;-webkit-font-smoothing:antialiased;}
+  ::selection{background:#141414;color:#fff;}
+  a{color:#141414;text-decoration:none;}
+  a:hover{color:#000;}
+  @keyframes rw-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.82)}}
+  @keyframes rw-blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+  @keyframes rw-spin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+    <rect width="400" height="300" fill="#f6f6f4"/>
+    <g shape-rendering="crispEdges">
+      <rect x="130" y="100" width="140" height="100" fill="#ffff00"/>
+      <rect x="130" y="90" width="60" height="12" fill="#ffff00"/>
+      <rect x="130" y="90" width="140" height="6" fill="#121212"/>
+      <rect x="130" y="196" width="140" height="6" fill="#121212"/>
+      <rect x="130" y="90" width="6" height="112" fill="#121212"/>
+      <rect x="264" y="96" width="6" height="106" fill="#121212"/>
+    </g>
+    <text x="200" y="238" font-family="monospace" font-size="20" fill="#121212" text-anchor="middle" letter-spacing="2">ARCHIVE</text>
+  </svg>
+</template>
+<div ref="{{ avPool }}" style="position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;">
+  <img data-h="@craigbarber" src="assets/avatars/craigbarber.jpg" alt="" />
+  <img data-h="@Dr_Asif_Khan" src="assets/avatars/Dr_Asif_Khan.jpg" alt="" />
+  <img data-h="@gobdovan" src="assets/avatars/gobdovan.jpg" alt="" />
+  <img data-h="@Hendrix312002" src="assets/avatars/Hendrix312002.jpg" alt="" />
+  <img data-h="@nelsonlecuane" src="assets/avatars/nelsonlecuane.jpg" alt="" />
+  <img data-h="@osvaldodiasdossantos6625" src="assets/avatars/osvaldodiasdossantos6625.jpg" alt="" />
+  <img data-h="@ramsyrama" src="assets/avatars/ramsyrama.jpg" alt="" />
+  <img data-h="@SugSean" src="assets/avatars/SugSean.jpg" alt="" />
+  <img data-h="@SYBIOTE" src="assets/avatars/SYBIOTE.jpg" alt="" />
+  <img data-h="@ta-prgmr" src="assets/avatars/ta-prgmr.jpg" alt="" />
+  <img data-h="@timsh0e03" src="assets/avatars/timsh0e03.jpg" alt="" />
+  <img data-h="@untalked" src="assets/avatars/untalked.jpg" alt="" />
+  <img data-h="@uv-rayss" src="assets/avatars/uv-rayss.jpg" alt="" />
+</div>
+<div style="background:#f6f6f4;overflow-x:hidden;position:relative;">
+
+  <div style="position:fixed;top:0;left:0;right:0;height:2px;z-index:600;pointer-events:none;">
+    <div ref="{{ progBar }}" style="height:100%;width:0%;background:#121212;"></div>
+  </div>
+
+  <div style="background:#121212;color:#fafafa;font-size:13px;text-align:center;padding:9px 16px;font-weight:500;">
+    Doors open soon. Founding members lock $49/month for life.&nbsp;&nbsp;<span style="opacity:.6;font-family:'Geist Mono',monospace;font-size:12px;">Join the waitlist →</span>
+  </div>
+
+  <!-- nav -->
+  <div style="max-width:1180px;margin:0 auto;border-left:1px solid #e7e7e3;border-right:1px solid #e7e7e3;background:#f6f6f4;">
+    <div style="display:flex;align-items:center;justify-content:space-between;height:70px;padding:0 28px;border-bottom:1px solid #e7e7e3;">
+      <div style="display:flex;align-items:center;gap:38px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <img src="assets/logo.png" alt="Rosewell Archive" style="width:30px;height:30px;object-fit:contain;image-rendering:pixelated;" />
+          <span style="font-weight:500;font-size:18px;letter-spacing:-.02em;">Rosewell Archive</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:26px;font-size:14.5px;font-weight:500;color:#3a3a38;white-space:nowrap;">
+          <a href="#inside" style-hover="color:#000;">What's inside</a>
+          <a href="#reviews" style-hover="color:#000;">Reviews</a>
+          <a href="#pricing" style-hover="color:#000;">Pricing</a>
+          <a href="#faq" style-hover="color:#000;">FAQ</a>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        
+        <a href="#waitlist" style="background:#121212;color:#fff;font-size:14px;font-weight:500;padding:9px 17px;cursor:pointer;white-space:nowrap;" style-hover="background:#000;">Join waitlist</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- hero -->
+  <div ref="{{ heroSec }}" style="max-width:1180px;margin:0 auto;border-left:1px solid #e7e7e3;border-right:1px solid #e7e7e3;background:#f6f6f4;position:relative;background-image:linear-gradient(#efefec 1px,transparent 1px),linear-gradient(90deg,#efefec 1px,transparent 1px);background-size:58px 58px;">
+    <div style="position:absolute;top:18px;left:22px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#bdbdb8;">[ 1M+ LEADS ]</div>
+    <div style="position:absolute;top:18px;right:22px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#bdbdb8;">[ SOLO FOUNDER ]</div>
+
+    <div style="padding:70px 28px 0;text-align:center;position:relative;">
+      <div style="position:relative;display:inline-flex;overflow:hidden;background:#e4e4df;">
+        <div style="position:absolute;top:50%;left:50%;width:320px;height:320px;background:conic-gradient(from 0deg, rgba(47,107,255,0) 0deg, rgba(47,107,255,0) 268deg, rgba(47,107,255,.12) 308deg, #2f6bff 348deg, rgba(47,107,255,0) 360deg);animation:rw-spin 3.4s linear infinite;"></div>
+        <div style="position:relative;margin:1.5px;display:inline-flex;align-items:center;gap:8px;background:#fff;padding:6px 15px 6px 12px;font-size:13px;font-weight:500;color:#3a3a38;white-space:nowrap;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#1d9d5b;display:inline-block;animation:rw-pulse 1.6s ease-in-out infinite;"></span>
+          Waitlist open · the Rosewell Archive by Olly Rosewell
+        </div>
+      </div>
+      <h1 style="font-size:clamp(33px,4.4vw,54px);line-height:1.0;letter-spacing:-.035em;font-weight:500;margin:26px auto 0;max-width:900px;color:#101010;">Building a SaaS LIVE from zero to $10K MRR.</h1>
+      <p style="font-size:clamp(15px,1.4vw,17px);line-height:1.5;color:#5f5f5a;max-width:660px;margin:24px auto 0;font-weight:450;">A private community with 1,000,000+ verified B2B leads, 20+ unreleased videos, my raw cold call scripts and live recordings, 50 plug-and-play SaaS landing pages, and a new SaaS built live from zero to $10K MRR.</p>
+      <div id="waitlist" style="margin:34px auto 0;max-width:640px;border:1px solid #deded8;background:#fff;box-shadow:0 26px 64px -40px rgba(20,20,20,.5);padding:24px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
+          <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.18em;color:#9b9b96;">[ JOIN THE WAITLIST ]</span>
+          <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#2f6bff;">{{ spots }}</span>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <input value="{{ fname }}" onInput="{{ onName }}" placeholder="Full name" style="background:#fbfbfa;border:1px solid #d8d8d3;padding:15px 16px;font-size:15.5px;font-family:'Geist',sans-serif;flex:1;min-width:170px;outline:none;color:#1a1a1a;" />
+          <input value="{{ femail }}" onInput="{{ onEmail }}" placeholder="you@company.com" style="background:#fbfbfa;border:1px solid #d8d8d3;padding:15px 16px;font-size:15.5px;font-family:'Geist',sans-serif;flex:1.3;min-width:200px;outline:none;color:#1a1a1a;" />
+        </div>
+        <div onClick="{{ onJoin }}" style="margin-top:10px;background:#121212;color:#fff;text-align:center;font-size:16px;font-weight:500;padding:16px;cursor:pointer;" style-hover="background:#000;">{{ ctaLabel }}</div>
+        <div style="margin-top:12px;text-align:center;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:{{ noteColor }};">{{ note }}</div>
+      </div>
+    </div>
+
+    <!-- lead database console -->
+    <div style="padding:46px 28px 30px;position:relative;">
+      <div style="position:absolute;bottom:14px;left:22px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#bdbdb8;">[ 0 → $10K MRR ]</div>
+      <div style="position:absolute;bottom:14px;right:22px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#bdbdb8;">[ WAITLIST OPEN ]</div>
+      <div style="perspective:1600px;">
+        <div ref="{{ heroTilt }}" style="border:1px solid #e3e3de;background:#fff;border-radius:13px;overflow:hidden;box-shadow:0 24px 60px -34px rgba(20,20,20,.28);will-change:transform;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid #eeeeea;background:#fcfcfb;">
+            <div style="display:flex;align-items:center;gap:7px;">
+              <span style="width:11px;height:11px;border-radius:50%;background:#e2e2dd;"></span>
+              <span style="width:11px;height:11px;border-radius:50%;background:#e2e2dd;"></span>
+              <span style="width:11px;height:11px;border-radius:50%;background:#e2e2dd;"></span>
+              <span style="margin-left:12px;font-family:'Geist Mono',monospace;font-size:12px;color:#9c9c96;letter-spacing:.04em;white-space:nowrap;">rosewell archive · lead-database</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.12em;color:#3a3a38;">
+              <span style="width:7px;height:7px;border-radius:50%;background:#1d9d5b;animation:rw-pulse 1.4s ease-in-out infinite;"></span>MEMBER ACCESS
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);">
+            <div style="position:relative;background:#fbfbfa;min-height:330px;overflow:hidden;border-right:1px solid #eeeeea;background-image:linear-gradient(90deg,#f1f1ee 1px,transparent 1px);background-size:58px 100%;">
+              <div style="position:absolute;top:14px;left:18px;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.08em;color:#9a9a94;z-index:3;">GLOBAL COVERAGE</div>
+              <div ref="{{ counterRef }}" style="position:absolute;top:14px;right:18px;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.08em;color:#2f6bff;z-index:3;">1,042,860 records</div>
+              <div style="position:absolute;left:50%;bottom:-206px;transform:translateX(-50%);z-index:2;">
+                <pre ref="{{ globeRef }}" style="margin:0;font-family:'Geist Mono',monospace;font-size:9px;line-height:8px;color:#8f8f89;white-space:pre;"></pre>
+              </div>
+            </div>
+            <div style="padding:22px 24px;background:#fff;">
+              <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#9b9b96;margin-bottom:14px;">SAMPLE RECORDS</div>
+              <pre ref="{{ rowsRef }}" style="margin:0;font-family:'Geist Mono',monospace;font-size:11.5px;line-height:1.85;color:#2b2b29;white-space:pre;"></pre>
+              <div style="margin-top:18px;padding-top:14px;border-top:1px solid #f0f0ec;display:flex;gap:8px;flex-wrap:wrap;">
+                <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.08em;border:1px solid #e6e6e1;padding:4px 8px;color:#65655f;">verified email</span>
+                <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.08em;border:1px solid #e6e6e1;padding:4px 8px;color:#65655f;">direct mobile</span>
+                <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.08em;border:1px solid #e6e6e1;padding:4px 8px;color:#65655f;">CSV export</span>
+                <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.08em;border:1px solid #e6e6e1;padding:4px 8px;color:#65655f;">no credit limits</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- stat strip -->
+  <div style="max-width:1180px;margin:0 auto;border-left:1px solid #e7e7e3;border-right:1px solid #e7e7e3;border-top:1px solid #e7e7e3;background:#f6f6f4;">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);">
+      <div style="padding:30px 26px;border-right:1px solid #e7e7e3;">
+        <div style="font-size:32px;font-weight:500;letter-spacing:-.04em;color:#101010;">1M+</div>
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;color:#9b9b96;margin-top:8px;">B2B LEADS INCLUDED</div>
+      </div>
+      <div style="padding:30px 26px;border-right:1px solid #e7e7e3;">
+        <div style="font-size:32px;font-weight:500;letter-spacing:-.04em;color:#101010;">20+</div>
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;color:#9b9b96;margin-top:8px;">UNRELEASED VIDEOS</div>
+      </div>
+      <div style="padding:30px 26px;border-right:1px solid #e7e7e3;">
+        <div style="font-size:32px;font-weight:500;letter-spacing:-.04em;color:#101010;">50</div>
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;color:#9b9b96;margin-top:8px;">SAAS LANDING TEMPLATES</div>
+      </div>
+      <div style="padding:30px 26px;">
+        <div style="font-size:32px;font-weight:500;letter-spacing:-.04em;color:#101010;">$49</div>
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;color:#9b9b96;margin-top:8px;">PER MONTH · CANCEL ANYTIME</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- featured review carousel -->
+  <div style="max-width:1180px;margin:0 auto;border-left:1px solid #e7e7e3;border-right:1px solid #e7e7e3;border-top:1px solid #e7e7e3;background:#f6f6f4;">
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);">
+      <div style="padding:44px 30px;border-right:1px solid #e7e7e3;display:flex;flex-direction:column;justify-content:space-between;">
+        <div>
+          <div style="font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.16em;color:#9b9b96;">[ from the channel ]</div>
+          <p style="margin:16px 0 0;font-size:15.5px;line-height:1.55;color:#5f5f5a;max-width:300px;">Real comments from rosewell.dev viewers. The community is the paid version of everything they're reacting to.</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;margin-top:32px;">
+          <div onClick="{{ prevFeat }}" style="width:36px;height:36px;border:1px solid #d8d8d3;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:14px;color:#3a3a38;cursor:pointer;" style-hover="border-color:#121212;">←</div>
+          <div onClick="{{ nextFeat }}" style="width:36px;height:36px;border:1px solid #d8d8d3;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:14px;color:#3a3a38;cursor:pointer;" style-hover="border-color:#121212;">→</div>
+          <div ref="{{ featIdx }}" style="margin-left:6px;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.14em;color:#a7a7a1;">01 / 08</div>
+        </div>
+      </div>
+      <div style="padding:44px 40px;display:flex;flex-direction:column;justify-content:center;min-height:300px;">
+        <div ref="{{ featTag }}" style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#9b9b96;">QUALITY / VALUE</div>
+        <p ref="{{ featQuote }}" style="font-size:clamp(19px,2.05vw,27px);line-height:1.34;letter-spacing:-.018em;font-weight:500;color:#161616;margin:20px 0 0;height:170px;overflow:hidden;">“No one can beat the quality of info you provided, can't be more grateful!”</p>
+        <div style="margin-top:24px;display:flex;align-items:center;gap:11px;">
+          <div ref="{{ featAv }}" style="width:34px;height:34px;background:#f0f0ec;border:1px solid #e7e7e3;display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:12px;color:#65655f;background-size:cover;background-position:center;flex:none;">U</div>
+          <span ref="{{ featHandle }}" style="font-family:'Geist Mono',monospace;font-size:13px;color:#3a3a38;">@uv-rayss</span>
+        </div>
+        <div style="margin-top:26px;height:1px;background:#ededea;position:relative;">
+          <div ref="{{ featBar }}" style="position:absolute;left:0;top:0;height:1px;width:0%;background:#121212;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- what's inside -->
+  <div id="inside" style="max-width:1180px;margin:0 auto;border-left:1px solid #e7e7e3;border-right:1px solid #e7e7e3;border-top:1px solid #e7e7e3;background:#f6f6f4;">
+    <div style="padding:62px 30px 8px;">
+      <div style="font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.16em;color:#9b9b96;">[ what you get ]</div>
+      <h2 style="font-size:clamp(24px,2.8vw,35px);letter-spacing:-.03em;font-weight:500;margin:14px 0 0;max-width:700px;line-height:1.05;color:#111;">Eight things unlocked the moment doors open.</h2>
+      <p style="font-size:16px;color:#5f5f5a;max-width:560px;margin:16px 0 0;line-height:1.5;">No drip-feed and no upsells inside. Everything below lands on day one and is updated every week.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);margin-top:34px;">
+      <div style="border-top:1px solid #e7e7e3;border-right:1px solid #e7e7e3;padding:34px 30px 0;min-width:0;">
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#9b9b96;margin-bottom:14px;">01 ▣ Lead database</div>
+        <p style="margin:0;font-size:17px;line-height:1.45;max-width:360px;min-height:78px;"><span style="font-weight:500;color:#141414;">1,000,000+ B2B leads.</span> <span style="color:#65655f;">Verified emails and direct mobile numbers, filterable and exportable. Instant access, no credit limits.</span></p>
+        <div style="margin:26px -30px 0;border-top:1px solid #ededea;background:#fbfbfa;padding:20px 26px;height:236px;overflow:hidden;background-image:linear-gradient(#f2f2ef 1px,transparent 1px);background-size:100% 24px;">
+          <div ref="{{ termRef }}" style="font-family:'Geist Mono',monospace;font-size:0;line-height:24px;color:#2b2b29;">
+            <div style="opacity:0;transition:opacity .6s ease;font-size:12.5px;white-space:pre;">$ leads filter --industry saas --title founder</div>
+            <div style="opacity:0;transition:opacity .6s ease;font-size:12.5px;white-space:pre;">  matching records ......... 148,206</div>
+            <div style="opacity:0;transition:opacity .6s ease;font-size:12.5px;white-space:pre;">  email verified ........... 97.4%</div>
+            <div style="opacity:0;transition:opacity .6s ease;font-size:12.5px;white-space:pre;">  direct mobiles ........... 612,940</div>
+            <div style="opacity:0;transition:opacity .6s ease;font-size:12.5px;white-space:pre;">  exporting leads.csv ...... done</div>
+            <div style="opacity:0;transition:opacity .6s ease;font-size:12.5px;white-space:pre;">  status: ready to send  ✓</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid #e7e7e3;padding:34px 30px 0;min-width:0;">
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#9b9b96;margin-bottom:14px;">02 ◎ Unreleased videos</div>
+        <p style="margin:0;font-size:17px;line-height:1.45;max-width:360px;min-height:78px;"><span style="font-weight:500;color:#141414;">20+ videos that never went public.</span> <span style="color:#65655f;">Starting, scaling and selling SaaS solo, including the deals, numbers and mistakes I cut from YouTube.</span></p>
+        <div style="margin:26px -30px 0;border-top:1px solid #ededea;background:#fbfbfa;padding:14px 26px;height:236px;overflow:hidden;">
+          <sc-for list="{{ vids }}" as="v" hint-placeholder-count="5">
+            <div style="display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid #f0f0ec;">
+              <span style="font-family:'Geist Mono',monospace;font-size:10.5px;color:#b6b6b0;min-width:22px;">{{ v.n }}</span>
+              <span style="width:34px;height:21px;background:#e4e4df;display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:9px;color:#8f8f89;">▶</span>
+              <span style="font-size:13.5px;color:#2c2c2a;flex:1;">{{ v.t }}</span>
+              <span style="font-family:'Geist Mono',monospace;font-size:10.5px;color:#9b9b96;">{{ v.d }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid #e7e7e3;border-right:1px solid #e7e7e3;padding:34px 30px 0;min-width:0;">
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#9b9b96;margin-bottom:14px;">03 ➤ Cold call vault</div>
+        <p style="margin:0;font-size:17px;line-height:1.45;max-width:360px;min-height:78px;"><span style="font-weight:500;color:#141414;">Raw scripts and live recordings.</span> <span style="color:#65655f;">Hear me sell in real time, objections, pricing and closes, with the exact scripts I read from.</span></p>
+        <div style="position:relative;margin:26px -30px 0;border-top:1px solid #ededea;background:#fbfbfa;padding:22px 26px;height:236px;overflow:hidden;">
+          <div style="font-family:'Geist Mono',monospace;font-size:11.5px;color:#8f8f89;margin-bottom:10px;">call_047_live_close.wav<span style="display:inline-block;width:1px;height:11px;background:#b2b2ac;margin-left:4px;vertical-align:-1px;animation:rw-blink 1.1s step-end infinite;"></span></div>
+          <pre ref="{{ waveRef }}" style="margin:0;font-family:'Geist Mono',monospace;font-size:11px;line-height:1.15;color:#3b3b39;white-space:pre;"></pre>
+          <div style="position:absolute;bottom:18px;left:26px;right:26px;display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #e6e6e1;border-radius:7px;padding:6px 11px;font-family:'Geist Mono',monospace;font-size:11.5px;color:#2b2b29;box-shadow:0 6px 16px -10px rgba(0,0,0,.3);">
+            <span style="width:6px;height:6px;border-radius:50%;background:#1d9d5b;animation:rw-pulse 1.3s infinite;flex:none;"></span>“so what would need to be true to start Monday?”
+          </div>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid #e7e7e3;padding:34px 30px 0;min-width:0;">
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#9b9b96;margin-bottom:14px;">04 ⊕ Built live: 0 → $10K MRR</div>
+        <p style="margin:0;font-size:17px;line-height:1.45;max-width:360px;min-height:78px;"><span style="font-weight:500;color:#141414;">A brand new SaaS, built in the open.</span> <span style="color:#65655f;">Every decision, line of code, price change and customer call, from zero to $10,000 monthly recurring revenue.</span></p>
+        <div style="margin:26px -30px 0;border-top:1px solid #ededea;background:#fbfbfa;padding:22px 26px;height:236px;overflow:hidden;">
+          <pre ref="{{ mrrRef }}" style="margin:0;font-family:'Geist Mono',monospace;font-size:11px;line-height:1.1;color:#2b2b29;white-space:pre;"></pre>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #e7e7e3;">
+      <div style="padding:32px 26px;border-right:1px solid #e7e7e3;">
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#9b9b96;margin-bottom:12px;">05 ◈ Founder interviews</div>
+        <p style="margin:0;font-size:14.5px;line-height:1.5;color:#2c2c2a;font-weight:500;">Weekly interviews with SaaS founders who went from zero to profitable. Full numbers, no theatre.</p>
+      </div>
+      <div style="padding:32px 26px;border-right:1px solid #e7e7e3;">
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#9b9b96;margin-bottom:12px;">06 ▤ 50 landing templates</div>
+        <p style="margin:0;font-size:14.5px;line-height:1.5;color:#2c2c2a;font-weight:500;">Plug-and-play SaaS landing pages modelled on million-dollar products. Swap the copy and ship.</p>
+      </div>
+      <div style="padding:32px 26px;border-right:1px solid #e7e7e3;">
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#9b9b96;margin-bottom:12px;">07 ✉ Cold email infra</div>
+        <p style="margin:0;font-size:14.5px;line-height:1.5;color:#2c2c2a;font-weight:500;">The full sending setup, domains, inboxes, warmup and sequences, built for 50 new customers a month.</p>
+      </div>
+      <div style="padding:32px 26px;">
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#9b9b96;margin-bottom:12px;">08 ◒ Meta Ads guide</div>
+        <p style="margin:0;font-size:14.5px;line-height:1.5;color:#2c2c2a;font-weight:500;">Creative, targeting and budget structure to acquire SaaS customers profitably, not just cheaply.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- inline waitlist -->
+  <div style="max-width:1180px;margin:0 auto;border-left:1px solid #e7e7e3;border-right:1px solid #e7e7e3;border-top:1px solid #e7e7e3;background:#f6f6f4;">
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;">
+      <div style="padding:40px 30px;border-right:1px solid #e7e7e3;">
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#9b9b96;">[ don't miss the doors ]</div>
+        <h3 style="margin:12px 0 0;font-size:clamp(20px,2.2vw,27px);letter-spacing:-.028em;font-weight:500;line-height:1.1;color:#111;">Waitlist members get in first, at $49 for life.</h3>
+      </div>
+      <div style="padding:32px 30px;">
+        <div style="display:flex;gap:9px;flex-wrap:wrap;">
+          <input value="{{ fname }}" onInput="{{ onName }}" placeholder="Full name" style="background:#fff;border:1px solid #d8d8d3;padding:13px 15px;font-size:15px;font-family:'Geist',sans-serif;flex:1;min-width:150px;outline:none;color:#1a1a1a;" />
+          <input value="{{ femail }}" onInput="{{ onEmail }}" placeholder="you@company.com" style="background:#fff;border:1px solid #d8d8d3;padding:13px 15px;font-size:15px;font-family:'Geist',sans-serif;flex:1.2;min-width:180px;outline:none;color:#1a1a1a;" />
+        </div>
+        <div onClick="{{ onJoin }}" style="margin-top:9px;background:#121212;color:#fff;text-align:center;font-size:15px;font-weight:500;padding:14px;cursor:pointer;" style-hover="background:#000;">{{ ctaLabel }}</div>
+        <div style="margin-top:11px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.04em;color:{{ noteColor }};">{{ note }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- review wall -->
+  <div id="reviews" style="max-width:1180px;margin:0 auto;border-left:1px solid #e7e7e3;border-right:1px solid #e7e7e3;background:#f6f6f4;">
+    <div style="padding:62px 30px 8px;">
+      <div style="font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.16em;color:#9b9b96;">[ the wall ]</div>
+      <h2 style="font-size:clamp(24px,2.8vw,35px);letter-spacing:-.03em;font-weight:500;margin:14px 0 0;max-width:700px;line-height:1.05;color:#111;">What people say after watching, then doing.</h2>
+      <p style="font-size:16px;color:#5f5f5a;max-width:560px;margin:16px 0 0;line-height:1.5;">Unedited comments from the rosewell.dev channel.</p>
+    </div>
+    <div style="padding:34px 26px 20px;column-count:3;column-gap:18px;">
+      <sc-for list="{{ wall }}" as="r" hint-placeholder-count="20">
+        <div style="break-inside:avoid;border:1px solid #e7e7e3;background:#fff;padding:20px;margin-bottom:18px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:30px;height:30px;background:#f0f0ec;border:1px solid #e7e7e3;display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:12px;color:#65655f;flex:none;background-image:{{ r.bg }};background-size:cover;background-position:center;">{{ r.letter }}</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-family:'Geist Mono',monospace;font-size:12px;color:#161616;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ r.h }}</div>
+              <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.1em;color:#b6b6b0;margin-top:2px;">{{ r.tag }}</div>
+            </div>
+            <span style="font-family:'Geist Mono',monospace;font-size:10px;color:#c2c2bc;flex:none;">★★★★★</span>
+          </div>
+          <p style="margin:14px 0 0;font-size:14.5px;line-height:1.5;color:#2c2c2a;">{{ r.t }}</p>
+        </div>
+      </sc-for>
+    </div>
+  
+  <!-- waitlist after reviews -->
+  <div style="max-width:1180px;margin:0 auto;border-left:1px solid #e7e7e3;border-right:1px solid #e7e7e3;border-top:1px solid #e7e7e3;background:#f6f6f4;">
+    <div style="padding:46px 30px;text-align:center;">
+      <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#9b9b96;">[ join them ]</div>
+      <h3 style="margin:12px auto 0;font-size:clamp(20px,2.2vw,28px);letter-spacing:-.028em;font-weight:500;line-height:1.1;color:#111;max-width:520px;">Get the Archive the day it opens.</h3>
+      <div style="margin:24px auto 0;max-width:540px;display:flex;gap:9px;flex-wrap:wrap;">
+        <input value="{{ fname }}" onInput="{{ onName }}" placeholder="Full name" style="background:#fff;border:1px solid #d8d8d3;padding:14px 15px;font-size:15px;font-family:'Geist',sans-serif;flex:1;min-width:150px;outline:none;color:#1a1a1a;" />
+        <input value="{{ femail }}" onInput="{{ onEmail }}" placeholder="you@company.com" style="background:#fff;border:1px solid #d8d8d3;padding:14px 15px;font-size:15px;font-family:'Geist',sans-serif;flex:1.2;min-width:180px;outline:none;color:#1a1a1a;" />
+        <div onClick="{{ onJoin }}" style="background:#121212;color:#fff;font-size:15px;font-weight:500;padding:14px 24px;cursor:pointer;white-space:nowrap;" style-hover="background:#000;">{{ ctaLabel }}</div>
+      </div>
+      <div style="margin-top:12px;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:{{ noteColor }};">{{ note }}</div>
+    </div>
+  </div>
+
+  <!-- guarantee -->
+  <div style="max-width:1180px;margin:0 auto;border-left:1px solid #e7e7e3;border-right:1px solid #e7e7e3;border-top:1px solid #e7e7e3;background:#f6f6f4;">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);">
+      <div style="padding:34px 28px;border-right:1px solid #e7e7e3;">
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#9b9b96;">⚡ INSTANT ACCESS AT LAUNCH</div>
+        <p style="margin:12px 0 0;font-size:15px;line-height:1.5;color:#2c2c2a;font-weight:500;">The lead database, every video and all 50 templates unlock the second doors open. Nothing is drip-fed.</p>
+      </div>
+      <div style="padding:34px 28px;border-right:1px solid #e7e7e3;">
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#9b9b96;">↺ CANCEL ANYTIME</div>
+        <p style="margin:12px 0 0;font-size:15px;line-height:1.5;color:#2c2c2a;font-weight:500;">One click in your dashboard. No calls, no email chains, no “tell us why you're leaving” funnel.</p>
+      </div>
+      <div style="padding:34px 28px;">
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#9b9b96;">✓ 30-DAY GUARANTEE</div>
+        <p style="margin:12px 0 0;font-size:15px;line-height:1.5;color:#2c2c2a;font-weight:500;">Go through everything. If it isn't worth far more than $49, reply once and get a full refund.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- pricing -->
+  <div id="pricing" style="max-width:1180px;margin:0 auto;border-left:1px solid #e7e7e3;border-right:1px solid #e7e7e3;border-top:1px solid #e7e7e3;background:#f6f6f4;">
+    <div style="padding:64px 30px 16px;text-align:center;">
+      <div style="font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.16em;color:#9b9b96;">[ pricing ]</div>
+      <h2 style="font-size:clamp(24px,2.8vw,35px);letter-spacing:-.03em;font-weight:500;margin:14px 0 0;line-height:1.05;color:#111;">One membership. Everything included.</h2>
+      <p style="font-size:15.5px;color:#5f5f5a;margin:14px 0 0;">$49 per month, locked for waitlist members as long as they stay.</p>
+    </div>
+    <div style="padding:40px 30px 72px;display:flex;justify-content:center;">
+      <div style="border:1px solid #deded8;background:#fff;width:820px;max-width:100%;box-shadow:0 34px 80px -44px rgba(20,20,20,.45);display:grid;grid-template-columns:1.04fr 1fr;">
+        <div style="padding:36px 34px;border-right:1px solid #ededea;display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;">
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#9b9b96;">Waitlist membership</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:9.5px;letter-spacing:.14em;background:#121212;color:#fff;padding:3px 8px;white-space:nowrap;">WAITLIST PRICE</span>
+          </div>
+          <div style="display:flex;align-items:flex-end;gap:7px;margin-top:24px;">
+            <span style="font-size:62px;font-weight:500;letter-spacing:-.045em;line-height:.85;color:#101010;">$49</span>
+            <span style="color:#8a8a84;font-size:15px;margin-bottom:9px;">/ month</span>
+          </div>
+          <p style="margin:18px 0 0;color:#6f6f69;font-size:14.5px;line-height:1.55;">The leads, the videos, the scripts, the templates and the live build. One price, no tiers, no per-seat games. Join the waitlist to lock it in.</p>
+          <div style="flex:1;min-height:22px;"></div>
+          <div style="display:flex;flex-direction:column;gap:9px;margin-top:26px;">
+            <input value="{{ fname }}" onInput="{{ onName }}" placeholder="Full name" style="background:#fff;border:1px solid #d8d8d3;padding:12px 14px;font-size:14.5px;font-family:'Geist',sans-serif;width:100%;outline:none;color:#1a1a1a;" />
+            <input value="{{ femail }}" onInput="{{ onEmail }}" placeholder="you@company.com" style="background:#fff;border:1px solid #d8d8d3;padding:12px 14px;font-size:14.5px;font-family:'Geist',sans-serif;width:100%;outline:none;color:#1a1a1a;" />
+            <div onClick="{{ onJoin }}" style="background:#121212;color:#fff;text-align:center;font-size:15px;font-weight:500;padding:14px;cursor:pointer;" style-hover="background:#000;">{{ ctaLabel }}</div>
+          </div>
+          <div style="text-align:center;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.05em;color:{{ noteColor }};margin-top:13px;">{{ note }}</div>
+        </div>
+        <div style="padding:36px 32px;">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#9b9b96;">What's included</div>
+          <div style="margin-top:6px;">
+            <sc-for list="{{ included }}" as="f" hint-placeholder-count="8">
+              <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-top:1px solid #f0f0ec;font-size:14px;color:#2c2c2a;line-height:1.4;">
+                <span style="font-family:'Geist Mono',monospace;color:#1d9d5b;font-size:12px;margin-top:2px;">✓</span><span>{{ f }}</span>
+              </div>
+            </sc-for>
+            <div style="border-top:1px solid #f0f0ec;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div id="faq" style="max-width:1180px;margin:0 auto;border-left:1px solid #e7e7e3;border-right:1px solid #e7e7e3;border-top:1px solid #e7e7e3;background:#f6f6f4;">
+    <div style="padding:60px 30px 18px;">
+      <div style="font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.16em;color:#9b9b96;">[ faq ]</div>
+      <h2 style="font-size:clamp(23px,2.6vw,32px);letter-spacing:-.03em;font-weight:500;margin:14px 0 0;line-height:1.05;color:#111;">Frequently asked questions.</h2>
+    </div>
+    <div style="padding:24px 0 56px;">
+      <sc-for list="{{ faqItems }}" as="item" hint-placeholder-count="6">
+        <div onClick="{{ item.toggle }}" style="border-top:1px solid #ededea;padding:24px 30px;cursor:pointer;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;">
+            <span style="font-size:16.5px;font-weight:500;letter-spacing:-.01em;color:#1a1a1a;">{{ item.q }}</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:20px;color:#9b9b96;">{{ item.sign }}</span>
+          </div>
+          <div style="overflow:hidden;transition:max-height .32s ease;max-height:{{ item.maxh }};">
+            <p style="margin:14px 0 0;font-size:16px;line-height:1.55;color:#5f5f5a;max-width:680px;">{{ item.a }}</p>
+          </div>
+        </div>
+      </sc-for>
+      <div style="border-top:1px solid #ededea;"></div>
+    </div>
+  </div>
+
+
+  <!-- waitlist after faq -->
+  <div style="max-width:1180px;margin:0 auto;border-left:1px solid #e7e7e3;border-right:1px solid #e7e7e3;border-top:1px solid #e7e7e3;background:#f6f6f4;">
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;">
+      <div style="padding:38px 30px;border-right:1px solid #e7e7e3;display:flex;align-items:center;gap:14px;">
+        <img src="assets/logo.png" alt="" style="width:38px;height:38px;object-fit:contain;image-rendering:pixelated;flex:none;" />
+        <div>
+          <div style="font-size:17px;font-weight:500;letter-spacing:-.02em;color:#111;">Still deciding?</div>
+          <div style="font-size:14.5px;color:#5f5f5a;line-height:1.5;margin-top:4px;">Join the waitlist. It costs nothing and locks the founding price.</div>
+        </div>
+      </div>
+      <div style="padding:30px;">
+        <div style="display:flex;gap:9px;flex-wrap:wrap;">
+          <input value="{{ fname }}" onInput="{{ onName }}" placeholder="Full name" style="background:#fff;border:1px solid #d8d8d3;padding:13px 15px;font-size:15px;font-family:'Geist',sans-serif;flex:1;min-width:150px;outline:none;color:#1a1a1a;" />
+          <input value="{{ femail }}" onInput="{{ onEmail }}" placeholder="you@company.com" style="background:#fff;border:1px solid #d8d8d3;padding:13px 15px;font-size:15px;font-family:'Geist',sans-serif;flex:1.2;min-width:180px;outline:none;color:#1a1a1a;" />
+        </div>
+        <div onClick="{{ onJoin }}" style="margin-top:9px;background:#121212;color:#fff;text-align:center;font-size:15px;font-weight:500;padding:14px;cursor:pointer;" style-hover="background:#000;">{{ ctaLabel }}</div>
+        <div style="margin-top:11px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.04em;color:{{ noteColor }};">{{ note }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- final CTA -->
+  <div style="max-width:1180px;margin:0 auto;border-left:1px solid #e7e7e3;border-right:1px solid #e7e7e3;border-top:1px solid #e7e7e3;background:#f6f6f4;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;">
+      <div style="padding:64px 36px;border-right:1px solid #e7e7e3;">
+        <h2 style="font-size:clamp(26px,3.2vw,40px);letter-spacing:-.035em;font-weight:500;margin:0;line-height:1.02;color:#101010;">Get on the waitlist. Leave whenever you want.</h2>
+        <p style="margin:18px 0 0;font-size:15.5px;line-height:1.55;color:#5f5f5a;max-width:400px;">First in line when doors open, at the founding price of $49/month. Cancel anytime, 30-day money-back guarantee.</p>
+        <div style="display:flex;gap:9px;margin-top:28px;flex-wrap:wrap;max-width:430px;">
+          <input value="{{ fname }}" onInput="{{ onName }}" placeholder="Full name" style="background:#fff;border:1px solid #d8d8d3;padding:13px 15px;font-size:15px;font-family:'Geist',sans-serif;flex:1;min-width:150px;outline:none;color:#1a1a1a;" />
+          <input value="{{ femail }}" onInput="{{ onEmail }}" placeholder="you@company.com" style="background:#fff;border:1px solid #d8d8d3;padding:13px 15px;font-size:15px;font-family:'Geist',sans-serif;flex:1;min-width:180px;outline:none;color:#1a1a1a;" />
+          <div onClick="{{ onJoin }}" style="background:#121212;color:#fff;font-size:15px;font-weight:500;padding:13px 24px;cursor:pointer;white-space:nowrap;" style-hover="background:#000;">{{ ctaLabel }}</div>
+        </div>
+        <div style="margin-top:13px;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:{{ noteColor }};">{{ note }}</div>
+      </div>
+      <div ref="{{ wordWrap }}" style="display:flex;align-items:center;justify-content:center;overflow:hidden;background:#fbfbfa;background-image:linear-gradient(#f1f1ee 1px,transparent 1px),linear-gradient(90deg,#f1f1ee 1px,transparent 1px);background-size:30px 30px;min-height:220px;">
+        <pre ref="{{ wordRef }}" style="margin:0;font-family:'Geist Mono',monospace;font-size:13px;line-height:1.04;color:#141414;white-space:pre;user-select:none;"></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div style="max-width:1180px;margin:0 auto;border-left:1px solid #e7e7e3;border-right:1px solid #e7e7e3;border-top:1px solid #e7e7e3;background:#f6f6f4;">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:48px 30px 28px;gap:24px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <img src="assets/logo.png" alt="Rosewell Archive" style="width:28px;height:28px;object-fit:contain;image-rendering:pixelated;" />
+          <span style="font-weight:500;font-size:17px;letter-spacing:-.02em;">Rosewell Archive</span>
+        </div>
+        <p style="margin:0;font-size:14.5px;color:#6f6f69;max-width:300px;line-height:1.5;">The Rosewell Archive: a private vault of leads, footage, scripts and templates for solo SaaS founders. Run by Olly Rosewell.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:11px;font-size:14px;color:#5f5f5a;">
+        <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#a7a7a1;">Community</span>
+        <a href="#inside" style-hover="color:#000;">What's inside</a>
+        <a href="#pricing" style-hover="color:#000;">Pricing</a>
+        <a href="#faq" style-hover="color:#000;">FAQ</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:11px;font-size:14px;color:#5f5f5a;">
+        <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#a7a7a1;">Channel</span>
+        <span style="cursor:pointer;" style-hover="color:#000;">YouTube</span>
+        <span style="cursor:pointer;" style-hover="color:#000;">SaaS book</span>
+        <a href="#reviews" style-hover="color:#000;">Reviews</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:11px;font-size:14px;color:#5f5f5a;">
+        <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#a7a7a1;">Contact</span>
+        <span>olly@rosewell.dev</span>
+        <span style="cursor:pointer;" style-hover="color:#000;">Support</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 30px;border-top:1px solid #ededea;font-size:13px;color:#9b9b96;">
+      <span>© 2026 Rosewell Archive. All rights reserved.</span>
+      <div style="display:flex;gap:18px;"><span style="cursor:pointer;" style-hover="color:#000;">Privacy</span><span style="cursor:pointer;" style-hover="color:#000;">Terms</span></div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: {&quot;width&quot;: 1280, &quot;height&quot;: 900}
+}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    ["progBar","heroSec","heroCanvas","heroTilt","globeRef","rowsRef","counterRef","termRef","waveRef","mrrRef","wordRef","wordWrap","featTag","featQuote","featHandle","featAv","featIdx","featBar","avPool"].forEach(k => this[k] = React.createRef());
+    this.state = { open: {0:true}, fname:"", femail:"", joined:false, err:"" };
+
+    this.featured = [
+      { t:"Hey Olly, thank you mate. You've helped me a lot with the development of my project. I am about to launch my app. I'm really happy and proud of it.", h:"@SugSean", tag:"LIFE IMPACT" },
+      { t:"I love how practical your guide is, no fantasy, just the normal, boring, old-school way of achieving success on the internet. Lots of work required, which makes it even more realistic.", h:"@ramsyrama", tag:"NO FLUFF / PRACTICAL" },
+      { t:"Bought your guide and already 5-minutes in I am finding very valuable insight on how to scale, retain users and improve product. Well worth it!", h:"@untalked", tag:"ALREADY BOUGHT" },
+      { t:"This model is absolutely insane! I have been getting incredible results as well. Love the content my dude. Keep it coming.", h:"@Hendrix312002", tag:"QUALITY / VALUE" },
+      { t:"6 views I'm early, I'm trying to build a side hustle myself with your videos, really informative, thanks for all the wisdom you impart", h:"@SYBIOTE", tag:"QUALITY / VALUE" },
+      { t:"No one can beat the quality of info you provided, can't be more grateful!", h:"@uv-rayss", tag:"QUALITY / VALUE" },
+      { t:"bro been watching your content the quality and value is of the highest level, thank you", h:"@nelsonlecuane", tag:"QUALITY / VALUE" },
+      { t:"I like how this is actually a holistic guide for a successful product and happy customers.", h:"@gobdovan", tag:"NO FLUFF / PRACTICAL" }
+    ];
+
+    this.wall = [
+      { t:"Hey Olly, thank you mate. You've helped me a lot with the development of my project. I am about to launch my app. I'm really happy and proud of it.", h:"@SugSean", tag:"LIFE IMPACT" },
+      { t:"I love how practical your guide is, no fantasy, just the normal, boring, old-school way of achieving success on the internet. Lots of work required, which makes it even more realistic.", h:"@ramsyrama", tag:"NO FLUFF / PRACTICAL" },
+      { t:"Bought your guide and already 5-minutes in I am finding very valuable insight on how to scale, retain users and improve product. Well worth it!", h:"@untalked", tag:"ALREADY BOUGHT" },
+      { t:"No one can beat the quality of info you provided, can't be more grateful!", h:"@uv-rayss", tag:"QUALITY / VALUE" },
+      { t:"6 views I'm early, I'm trying to build a side hustle myself with your videos, really informative, thanks for all the wisdom you impart", h:"@SYBIOTE", tag:"QUALITY / VALUE" },
+      { t:"Helpful and well presented. Easy to watch from start to finish. Thanks.", h:"@osvaldodiasdossantos6625", tag:"CLARITY / TEACHING" },
+      { t:"This model is absolutely insane! I have been getting incredible results as well. Love the content my dude. Keep it coming.", h:"@Hendrix312002", tag:"QUALITY / VALUE" },
+      { t:"So good! Love how you explain complex stuff so simply : )", h:"@craigbarber", tag:"CLARITY / TEACHING" },
+      { t:"I like how this is actually a holistic guide for a successful product and happy customers.", h:"@gobdovan", tag:"NO FLUFF / PRACTICAL" },
+      { t:"bro been watching your content the quality and value is of the highest level, thank you", h:"@nelsonlecuane", tag:"QUALITY / VALUE" },
+      { t:"This was so insightful !! Thanks for sharing man", h:"@ta-prgmr", tag:"QUALITY / VALUE" },
+      { t:"Very inspiring! Just purchased your course!", h:"@Frank_learns", tag:"ALREADY BOUGHT" },
+      { t:"Love this guy and the sound advice here", h:"@Dr_Asif_Khan", tag:"TRUST / AUTHENTICITY" },
+      { t:"Absolute genius ideas. Why are you giving these out for free?", h:"@timsh0e03", tag:"QUALITY / VALUE" },
+      { t:"Super solid as always. Thank you", h:"@Hendrix312002", tag:"CONSISTENCY" }
+    ];
+
+
+    this.avatars = {
+      "@craigbarber":"assets/avatars/craigbarber.jpg",
+      "@Dr_Asif_Khan":"assets/avatars/Dr_Asif_Khan.jpg",
+      "@gobdovan":"assets/avatars/gobdovan.jpg",
+      "@Hendrix312002":"assets/avatars/Hendrix312002.jpg",
+      "@nelsonlecuane":"assets/avatars/nelsonlecuane.jpg",
+      "@osvaldodiasdossantos6625":"assets/avatars/osvaldodiasdossantos6625.jpg",
+      "@ramsyrama":"assets/avatars/ramsyrama.jpg",
+      "@SugSean":"assets/avatars/SugSean.jpg",
+      "@SYBIOTE":"assets/avatars/SYBIOTE.jpg",
+      "@ta-prgmr":"assets/avatars/ta-prgmr.jpg",
+      "@timsh0e03":"assets/avatars/timsh0e03.jpg",
+      "@untalked":"assets/avatars/untalked.jpg",
+      "@uv-rayss":"assets/avatars/uv-rayss.jpg"
+    };
+    this.featured.forEach(r => { if(this.avatars[r.h]) r.pic = this.avatars[r.h]; });
+    this.wall.forEach(r => { if(this.avatars[r.h]) r.pic = this.avatars[r.h]; });
+
+    this.strip = [
+      { t:"Thanks as always Olly! Extremely helpful!", h:"@Lewis2145" },
+      { t:"wow this is very clear and valuable", h:"@thebensmbr1725" },
+      { t:"on to the point great content and strategies", h:"@SiddharthLalwani-s1e" },
+      { t:"insane value.. Thanks Olly!", h:"@thejordanoram" },
+      { t:"Now you really dropped something special here", h:"@0xThabiso" },
+      { t:"I stopped guessing and started shipping. Priceless !!!! Many thanks.", h:"@melody555soul" },
+      { t:"great stuff buddy, very useful", h:"@AkashVerma-s3b" },
+      { t:"This is underrated.", h:"@Rakesh-t1i8g" },
+      { t:"High quality content, thanks man!", h:"@falconiere" },
+      { t:"insane value thankyou so much", h:"@BrainlockApp" }
+    ];
+
+    this.ticker = [
+      { t:"Amazing advice", h:"@stormaker144" },
+      { t:"This is gold", h:"@ebrahimafridi689" },
+      { t:"Value value value", h:"@sagesingh" },
+      { t:"Very insightful", h:"@Oluwa-toki" },
+      { t:"man is just amazing", h:"@cant_sleeeep" },
+      { t:"This is so so good", h:"@RoryADonnelly" },
+      { t:"yeah this is gold", h:"@kinact3202" },
+      { t:"Great content Olly", h:"@dannydiscovers" },
+      { t:"Excellent!", h:"@brunocordista" },
+      { t:"i love your content my man!", h:"@MartianEnt15" },
+      { t:"Awesome guidelines", h:"@SyreeseDelosSantos" },
+      { t:"Thanks mate! This is valuable content", h:"@joydeepdas6533" }
+    ];
+
+    this.included = [
+      "1,000,000+ verified B2B leads: emails & direct mobiles",
+      "20+ unreleased videos on starting, scaling & selling SaaS",
+      "Raw cold call scripts + live recordings of real closes",
+      "Live build: new SaaS from zero to $10K MRR",
+      "Weekly interviews with profitable SaaS founders",
+      "50 plug-and-play SaaS landing page templates",
+      "Full cold email infrastructure for 50 customers/month",
+      "Complete Meta Ads guide for profitable SaaS acquisition"
+    ];
+
+    this.vids = [
+      { n:"01", t:"Selling my first SaaS: the full deal", d:"41:18" },
+      { n:"02", t:"Pricing I'd never post publicly", d:"27:04" },
+      { n:"03", t:"The cold email stack, end to end", d:"52:39" },
+      { n:"04", t:"Firing my only customer", d:"18:22" },
+      { n:"05", t:"$0 → $4K MRR in 38 days", d:"33:57" }
+    ];
+
+    this.faqData = [
+      { q:"What do I get when doors open?", a:"The 1,000,000+ lead database, 20+ unreleased videos, the cold call script and recording vault, the live 0 to $10K MRR build, weekly founder interviews, 50 SaaS landing page templates, the cold email infrastructure setup and the Meta Ads guide. All of it, immediately." },
+      { q:"Are the leads actually usable?", a:"Yes. Verified B2B emails plus direct mobile numbers, filterable by industry, title, company size and geography, and exportable to CSV. No credit system and no per-export fees." },
+      { q:"Can I cancel anytime once I join?", a:"One click in your dashboard, no call and no exit funnel. You keep access until the end of the period you paid for." },
+      { q:"What's the guarantee?", a:"30 days. Work through everything, and if it isn't worth far more than $49, send one message and get a full refund." },
+      { q:"Is this for people who haven't started yet?", a:"Yes. The videos start at idea and pricing, and the templates plus lead database mean you can get in front of real customers in your first week." },
+      { q:"How often is new material added?", a:"Weekly. A founder interview every week, plus ongoing episodes of the live SaaS build and new leads added to the database." }
+    ];
+  }
+
+  resolveAvatars(){
+    const pool = this.avPool && this.avPool.current; if(!pool) return;
+    pool.querySelectorAll('img[data-h]').forEach(img => {
+      const h = img.getAttribute('data-h');
+      if(img.src) this.avatars[h] = img.src;
+    });
+    this.featured.forEach(r => { if(this.avatars[r.h]) r.pic = this.avatars[r.h]; });
+    this.wall.forEach(r => { if(this.avatars[r.h]) r.pic = this.avatars[r.h]; });
+    this.setFeatured(this._fi || 0);
+    this.forceUpdate();
+  }
+
+  componentDidMount(){
+    this._t0 = performance.now();
+    this._frame = 0; this._fi = 0; this._fT = performance.now();
+    this.mx = innerWidth/2; this.my = innerHeight/2;
+    this._tiltX = 0; this._tiltY = 0;
+    this._heroVis = true; this._wordVis = false;
+    this._count = 1042860;
+
+    this._onMove = (e) => { this.mx = e.clientX; this.my = e.clientY; };
+    this._onResize = () => this.measure();
+    window.addEventListener('mousemove', this._onMove, { passive:true });
+    window.addEventListener('resize', this._onResize);
+
+    this._ios = [];
+    const watch = (ref, key) => {
+      if(!ref.current) return;
+      const io = new IntersectionObserver(es => es.forEach(en => { this[key] = en.isIntersecting; }), { threshold:0 });
+      io.observe(ref.current); this._ios.push(io);
+    };
+    watch(this.heroSec, '_heroVis');
+    watch(this.wordWrap, '_wordVis');
+
+    this._step = 0; this._tick = 0;
+    this._iv = setInterval(() => {
+      const t = (performance.now() - this._t0) / 1000;
+      this.drawGlobe(t); this.drawWave(t); this.drawMrr(t);
+      this._tick++;
+      if(this._tick % 6 === 0){ this.drawRows(); this.bumpCount(); }
+      if(this._tick % 4 === 0){ this._step++; this.drawTerm(this._step); }
+    }, 45);
+    this.drawTerm(0); this.drawRows();
+    this.setFeatured(0);
+    requestAnimationFrame(() => this.resolveAvatars());
+
+    this.buildWordmark();
+    this.measure();
+    this._loop = this._loop.bind(this);
+    this._raf = requestAnimationFrame(this._loop);
+  }
+
+  componentWillUnmount(){
+    clearInterval(this._iv);
+    cancelAnimationFrame(this._raf);
+    window.removeEventListener('mousemove', this._onMove);
+    window.removeEventListener('resize', this._onResize);
+    (this._ios || []).forEach(io => io.disconnect());
+  }
+
+  measure(){
+    if(this.wordRef.current && this.wordWrap.current){
+      const w = this.wordWrap.current.clientWidth - 44;
+      const fs = Math.max(5, Math.min(15, w / 60));
+      this.wordRef.current.style.fontSize = fs + 'px';
+      this.wordRef.current.style.lineHeight = (fs * 1.05) + 'px';
+    }
+  }
+
+  _loop(now){
+    this._frame++;
+    const t = now / 1000;
+    if(this.progBar.current){
+      const dh = document.documentElement.scrollHeight - innerHeight;
+      this.progBar.current.style.width = (dh > 0 ? (scrollY / dh) * 100 : 0) + '%';
+    }
+
+    if(this._wordVis) this.drawWordmark(t);
+
+    const el = now - this._fT, DUR = 6500;
+    if(this.featBar.current) this.featBar.current.style.width = Math.min(100, (el / DUR) * 100).toFixed(1) + '%';
+    if(el >= DUR) this.setFeatured((this._fi + 1) % this.featured.length);
+
+    this._raf = requestAnimationFrame(this._loop);
+  }
+
+  setFeatured(i){
+    this._fi = i; this._fT = performance.now();
+    const d = this.featured[i]; if(!d) return;
+    const q = this.featQuote.current;
+    if(q){
+      q.style.transition = 'opacity .22s ease, transform .22s ease';
+      q.style.opacity = '0'; q.style.transform = 'translateY(8px)';
+      setTimeout(() => {
+        q.textContent = '\u201c' + d.t + '\u201d';
+        q.style.opacity = '1'; q.style.transform = 'translateY(0)';
+      }, 200);
+    }
+    if(this.featTag.current) this.featTag.current.textContent = d.tag;
+    if(this.featHandle.current) this.featHandle.current.textContent = d.h;
+    if(this.featAv.current){
+      const av = this.featAv.current;
+      if(d.pic){ av.style.backgroundImage = 'url("' + d.pic + '")'; av.textContent = ''; }
+      else { av.style.backgroundImage = 'none'; av.textContent = d.h.replace('@','').charAt(0).toUpperCase(); }
+    }
+    if(this.featIdx.current) this.featIdx.current.textContent = String(i+1).padStart(2,'0') + ' / ' + String(this.featured.length).padStart(2,'0');
+  }
+
+  updateTilt(){
+    const el = this.heroTilt.current; if(!el) return;
+    const nx = (this.mx / innerWidth) - 0.5, ny = (this.my / innerHeight) - 0.5;
+    this._tiltX += ((-ny * 3.0) - this._tiltX) * 0.06;
+    this._tiltY += ((nx * 3.8) - this._tiltY) * 0.06;
+    el.style.transform = 'rotateX(' + this._tiltX.toFixed(3) + 'deg) rotateY(' + this._tiltY.toFixed(3) + 'deg)';
+  }
+
+  drawHeroDither(t){
+    const cv = this.heroCanvas.current, sec = this.heroSec.current;
+    if(!cv || !sec) return;
+    const rect = sec.getBoundingClientRect();
+    const cw = Math.max(8, Math.ceil(rect.width / 10)), ch = Math.max(8, Math.ceil(rect.height / 10));
+    if(cv.width !== cw || cv.height !== ch){ cv.width = cw; cv.height = ch; this._hdImg = null; }
+    const ctx = cv.getContext('2d');
+    const img = this._hdImg || (this._hdImg = ctx.createImageData(cw, ch));
+    const d = img.data;
+    const B = this._b8 || (this._b8 = [0,32,8,40,2,34,10,42,48,16,56,24,50,18,58,26,12,44,4,36,14,46,6,38,60,28,52,20,62,30,54,22,3,35,11,43,1,33,9,41,51,19,59,27,49,17,57,25,15,47,7,39,13,45,5,37,63,31,55,23,61,29,53,21]);
+    const mxn = (this.mx - rect.left) / rect.width, myn = (this.my - rect.top) / rect.height;
+    const b1x = 0.28 + 0.14*Math.sin(t*0.21), b1y = 0.24 + 0.10*Math.cos(t*0.17);
+    const b2x = 0.74 + 0.12*Math.cos(t*0.13), b2y = 0.5 + 0.11*Math.sin(t*0.19);
+    for(let y=0;y<ch;y++){
+      const ny = y/ch;
+      for(let x=0;x<cw;x++){
+        const nx = x/cw;
+        const dxm = nx-mxn, dym = (ny-myn)*1.4;
+        let b = 0.6*Math.exp(-(dxm*dxm+dym*dym)*9);
+        const d1x = nx-b1x, d1y = (ny-b1y)*1.3;
+        b += 0.3*Math.exp(-(d1x*d1x+d1y*d1y)*7);
+        const d2x = nx-b2x, d2y = (ny-b2y)*1.3;
+        b += 0.26*Math.exp(-(d2x*d2x+d2y*d2y)*7);
+        const th = (B[(y%8)*8+(x%8)]+0.5)/64;
+        const i = (y*cw+x)*4;
+        if(b > th){ d[i]=213; d[i+1]=213; d[i+2]=207; d[i+3]=255; } else { d[i+3]=0; }
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+  }
+
+  isLand(lat, lon){
+    const C = this._cont || (this._cont = [[-100,48,33,20],[-92,30,15,12],[-115,60,22,12],[-60,-15,15,27],[-72,-3,9,15],[-42,72,15,9],[18,6,24,30],[14,52,22,12],[55,42,30,17],[98,57,52,22],[80,23,12,13],[114,4,22,11],[134,-26,16,10]]);
+    for(let i=0;i<C.length;i++){
+      const c = C[i];
+      const dlon = ((lon - c[0] + 540) % 360) - 180;
+      const a = dlon/c[2], b = (lat-c[1])/c[3];
+      if(a*a + b*b < 1) return true;
+    }
+    return false;
+  }
+
+  drawGlobe(t){
+    const el = this.globeRef.current; if(!el) return;
+    const COLS=104, ROWS=54, CX=52, CY=27, RX=52, RY=26;
+    const A = t*0.2, ca = Math.cos(A), sa = Math.sin(A);
+    const ramp = " .\u00b7:;+=oxX#%@", RL = ramp.length-1;
+    let out = "";
+    for(let y=0;y<ROWS;y++){
+      let line = "";
+      for(let x=0;x<COLS;x++){
+        const nx = (x-CX)/RX, ny = (y-CY)/RY;
+        const d2 = nx*nx + ny*ny;
+        if(d2 > 1){ line += ' '; continue; }
+        const nz = Math.sqrt(1-d2);
+        const Xx = nx*ca + nz*sa, Zz = -nx*sa + nz*ca;
+        const lat = Math.asin(-ny)*180/Math.PI, lon = Math.atan2(Xx, Zz)*180/Math.PI;
+        let li = nx*(-0.45) + ny*(-0.5) + nz*0.74; if(li<0) li=0; if(li>1) li=1;
+        const shade = 1-li;
+        let b = this.isLand(lat, lon) ? (0.46+0.5*shade) : (0.13+0.4*shade);
+        b += ((x+y)%2) ? -0.05 : 0.05;
+        let idx = Math.floor(b*RL); if(idx<0) idx=0; if(idx>RL) idx=RL;
+        line += ramp[idx];
+      }
+      out += line + "\n";
+    }
+    el.textContent = out;
+  }
+
+  drawRows(){
+    const el = this.rowsRef.current; if(!el) return;
+    const P = this._people || (this._people = [
+      ["m.hale","northwind.io","+1 415 920 44"],
+      ["p.raman","loopcart.co","+44 7802 331"],
+      ["d.whit","brightaxis.com","+1 646 118 22"],
+      ["s.klein","vantafl.io","+49 152 447 9"],
+      ["t.adeyemi","kestrelhq.com","+1 312 774 08"],
+      ["r.choi","novaledger.io","+61 402 118 6"],
+      ["e.vasquez","orbitstack.com","+34 611 208 4"],
+      ["a.bello","paperlane.io","+1 917 330 55"]
+    ]);
+    if(this._rowOff === undefined) this._rowOff = 0;
+    this._rowOff = (this._rowOff + 1) % P.length;
+    let out = "";
+    for(let i=0;i<8;i++){
+      const p = P[(this._rowOff + i) % P.length];
+      out += (p[0] + "@" + p[1]).padEnd(26).slice(0,26) + " " + p[2] + "\n";
+    }
+    el.textContent = out;
+  }
+
+  bumpCount(){
+    const el = this.counterRef.current; if(!el) return;
+    this._count += Math.floor(Math.random()*7) + 1;
+    el.textContent = this._count.toLocaleString('en-US') + " records";
+  }
+
+  drawTerm(step){
+    const el = this.termRef.current; if(!el) return;
+    const lines = el.children, n = lines.length; if(!n) return;
+    const per = 4, cycle = (n + 5) * per;
+    const k = Math.floor((step % cycle) / per);
+    for(let i=0;i<n;i++) lines[i].style.opacity = (i < k ? "1" : "0");
+  }
+
+  drawWave(t){
+    const el = this.waveRef.current; if(!el) return;
+    const cols = 76, rows = 9, mid = (rows-1)/2;
+    const head = (t*0.36) % 1.35;
+    let out = "";
+    for(let y=0;y<rows;y++){
+      let line = "";
+      for(let x=0;x<cols;x++){
+        const nx = x/cols;
+        let amp = Math.abs(Math.sin(x*0.53 + Math.sin(x*0.17)*2.1)) * (0.35 + 0.65*Math.abs(Math.sin(x*0.09 + 1.2)));
+        amp *= mid;
+        const played = nx < head;
+        const dy = Math.abs(y - mid);
+        if(dy <= amp) line += played ? (dy < amp*0.45 ? '\u2588' : '\u2593') : (dy < amp*0.45 ? '\u2591' : '\u00b7');
+        else line += ' ';
+      }
+      out += line + "\n";
+    }
+    el.textContent = out;
+  }
+
+  drawMrr(t){
+    const el = this.mrrRef.current; if(!el) return;
+    const cols = 60, rows = 12;
+    const grow = Math.min(1, (t % 14) / 9);
+    const grid = [];
+    for(let y=0;y<rows;y++) grid.push(new Array(cols).fill(' '));
+    let prev = rows-1;
+    for(let x=0;x<cols;x++){
+      const nx = x/(cols-1);
+      if(nx > grow){ break; }
+      const v = Math.pow(nx, 1.6) * (0.94 + 0.06*Math.sin(nx*18));
+      const y = Math.max(0, Math.min(rows-1, Math.round((rows-1) - v*(rows-1))));
+      const a = Math.min(prev, y), b = Math.max(prev, y);
+      for(let k=a;k<=b;k++) grid[k][x] = (k === y) ? '\u2588' : '\u2502';
+      prev = y;
+      if(x === cols-1 || nx + 1/(cols-1) > grow){
+        grid[y][x] = '\u25cf';
+      }
+    }
+    for(let x=0;x<cols;x++) if(grid[rows-1][x] === ' ') grid[rows-1][x] = '\u2500';
+    let out = "";
+    for(let y=0;y<rows;y++) out += grid[y].join('') + "\n";
+    const mrr = Math.round(grow * 10000);
+    out += "\nMRR  $" + mrr.toLocaleString('en-US') + "   \u00b7   target $10,000";
+    el.textContent = out;
+  }
+
+  buildWordmark(){
+    const F = {
+      R:["####.","#...#","#...#","####.","#.#..","#..#.","#...#"],
+      O:[".###.","#...#","#...#","#...#","#...#","#...#",".###."],
+      S:[".####","#....","#....",".###.","....#","....#","####."],
+      E:["#####","#....","#....","####.","#....","#....","#####"],
+      W:["#...#","#...#","#...#","#.#.#","#.#.#","##.##","#...#"],
+      L:["#....","#....","#....","#....","#....","#....","#####"]
+    };
+    const word = "ROSEWELL";
+    this._wmRows = 7;
+    this._wmOn = [];
+    for(let y=0;y<7;y++){
+      const row = [];
+      for(let li=0;li<word.length;li++){
+        const bm = F[word[li]];
+        for(let x=0;x<5;x++) row.push(bm[y][x] === '#');
+        if(li < word.length-1) row.push(false);
+      }
+      this._wmOn.push(row);
+    }
+    this._wmCols = this._wmOn[0].length;
+    this._wmThr = [];
+    for(let y=0;y<7;y++){
+      const tr = [];
+      for(let x=0;x<this._wmCols;x++) tr.push(Math.random());
+      this._wmThr.push(tr);
+    }
+  }
+
+  drawWordmark(t){
+    const el = this.wordRef.current; if(!el) return;
+    if(this._wmT0 === undefined) this._wmT0 = t;
+    const r = Math.min(1, (t - this._wmT0) / 1.6);
+    const G = "\u00b7:+=x#", wave = "#%@";
+    let out = "";
+    for(let y=0;y<this._wmRows;y++){
+      let line = "";
+      for(let x=0;x<this._wmCols;x++){
+        if(!this._wmOn[y][x]){ line += "  "; continue; }
+        const thr = this._wmThr[y][x];
+        let ch;
+        if(r >= thr){
+          const w = Math.sin(x*0.42 - t*2.4 + y*0.5)*0.5 + 0.5;
+          ch = wave[Math.min(wave.length-1, Math.floor(w*wave.length))];
+        } else if(r >= thr - 0.22){
+          ch = G[(Math.random()*G.length)|0];
+        } else ch = " ";
+        line += ch + ch;
+      }
+      out += line + "\n";
+    }
+    el.textContent = out;
+  }
+
+  onJoin(){
+    const n = (this.state.fname || "").trim();
+    const e = (this.state.femail || "").trim();
+    if(!n){ this.setState({ err:"enter your name to join the waitlist" }); return; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e)){ this.setState({ err:"enter a valid email address" }); return; }
+    this.setState({ joined:true, err:"" });
+  }
+
+  renderVals(){
+    const open = this.state.open || {};
+    const faqItems = this.faqData.map((it, i) => ({
+      q: it.q, a: it.a,
+      maxh: open[i] ? "320px" : "0px",
+      sign: open[i] ? "\u2013" : "+",
+      toggle: () => this.setState(s => ({ open: { ...s.open, [i]: !s.open[i] } }))
+    }));
+    const wall = this.wall.map(r => ({ ...r, bg: r.pic ? 'url("' + r.pic + '")' : 'none', letter: r.pic ? '' : r.h.replace('@','').charAt(0).toUpperCase() }));
+    return {
+      progBar:this.progBar, heroSec:this.heroSec, heroCanvas:this.heroCanvas, heroTilt:this.heroTilt,
+      globeRef:this.globeRef, rowsRef:this.rowsRef, counterRef:this.counterRef,
+      termRef:this.termRef, waveRef:this.waveRef, mrrRef:this.mrrRef,
+      wordRef:this.wordRef, wordWrap:this.wordWrap,
+      featTag:this.featTag, featQuote:this.featQuote, featHandle:this.featHandle,
+      featAv:this.featAv, featIdx:this.featIdx, featBar:this.featBar, avPool:this.avPool,
+      nextFeat: () => this.setFeatured((this._fi + 1) % this.featured.length),
+      prevFeat: () => this.setFeatured((this._fi - 1 + this.featured.length) % this.featured.length),
+      faqItems, wall, strip:this.strip, ticker:this.ticker,
+      fname: this.state.fname, femail: this.state.femail,
+      onName: (e) => this.setState({ fname: e.target.value, err:"" }),
+      onEmail: (e) => this.setState({ femail: e.target.value, err:"" }),
+      onJoin: () => this.onJoin(),
+      spots: this.state.joined ? "you're in" : "founding spots limited",
+      ctaLabel: this.state.joined ? "You're on the list ✓" : "Join the waitlist",
+      note: this.state.err ? this.state.err : (this.state.joined ? "we'll email you the moment doors open" : "no payment now · founding price locked · cancel anytime later"),
+      noteColor: this.state.err ? "#b4462f" : (this.state.joined ? "#1d9d5b" : "#a7a7a1"),
+      included:this.included, vids:this.vids
+    };
+  }
+}
+</script>
+</body>
+</html>
