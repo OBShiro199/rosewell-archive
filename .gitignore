@@ -1,0 +1,9 @@
+# Raw source images — not referenced by any page
+uploads/
+
+# Design-tool scratch
+.thumbnail
+_screenshots/
+
+# OS cruft
+.DS_Store
