@@ -26,16 +26,37 @@ unresolved UUIDs). Do not deploy it.
 
 ## Waitlist form
 
-The six forms on the page share one state. `onJoin()` validates name + email, then
-POSTs form-encoded to an n8n Cloud webhook, which appends a row in Google Sheets.
+The six forms on the page share one state. `onJoin()` validates name + email,
+then POSTs form-encoded to `/api/waitlist` (same origin), which forwards to a
+Make.com webhook that appends a row in Google Sheets.
 
-Fields sent: `name`, `email`, `source`, `page`, `referrer`, `submitted_at`.
+Fields sent: `name`, `email`, `source`, `page`, `referrer`, `submitted_at`,
+plus `ip` added server-side.
 
-The hook URL lives in `this.WEBHOOK` at the top of the component. The n8n workflow
-must be **Active** for the production URL to respond, and the Webhook node needs
-**Options -> Allowed Origins (CORS)** set to `*`. It is public by
-design (the browser calls it) and accepts writes only — the tradeoff is that it can
-be spammed, so add a honeypot or Turnstile if that becomes a problem.
+### Why the proxy
 
-To change destinations, edit `this.WEBHOOK` in `index.html` **and**
-`Rosewell Archive.dc.html` (see Files below).
+The Make webhook requires an `x-make-apikey` header. This page is public, so the
+key cannot live in it — anyone could read it in the page source. `api/waitlist.js`
+holds it in Vercel's environment instead. As a side benefit the browser request is
+same-origin, so CORS never applies.
+
+### Required environment variables
+
+Set these in **Vercel > Settings > Environment Variables**, then redeploy:
+
+| Name | Value |
+| --- | --- |
+| `MAKE_WEBHOOK_URL` | `https://hook.eu2.make.com/<your-hook-id>` |
+| `MAKE_API_KEY` | The webhook's API key |
+
+Never commit these. Without them the endpoint returns `500 not configured`.
+
+### Responses
+
+| Status | Meaning |
+| --- | --- |
+| `200` | Signup forwarded to Make |
+| `400` | Name missing or email invalid |
+| `405` | Non-POST request |
+| `500` | Env vars not set |
+| `502` | Make rejected it — usually the scenario is switched off (410) or the key is wrong (401) |

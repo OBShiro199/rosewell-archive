@@ -506,9 +506,9 @@ class Component extends DCLogic {
   constructor(props){
     super(props);
     ["progBar","heroSec","heroCanvas","heroTilt","globeRef","rowsRef","counterRef","termRef","waveRef","mrrRef","wordRef","wordWrap","featTag","featQuote","featHandle","featAv","featIdx","featBar","avPool"].forEach(k => this[k] = React.createRef());
-    // n8n Cloud webhook → Google Sheets. Public by design (it is called from the
-    // browser); it only accepts writes, so exposure just means it can be spammed.
-    this.WEBHOOK = "https://obshiro.app.n8n.cloud/webhook/waitlist-signup";
+    // Same-origin proxy → Make.com. The Make hook needs an API key, which cannot
+    // live in a public page, so /api/waitlist forwards it from Vercel's env.
+    this.WEBHOOK = "/api/waitlist";
     this.state = { open: {0:true}, fname:"", femail:"", joined:false, sending:false, err:"" };
 
     this.featured = [

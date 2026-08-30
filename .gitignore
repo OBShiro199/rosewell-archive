@@ -7,3 +7,7 @@ _screenshots/
 
 # OS cruft
 .DS_Store
+
+# Local env
+.env
+.env*.local
