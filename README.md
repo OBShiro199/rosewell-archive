@@ -27,11 +27,13 @@ unresolved UUIDs). Do not deploy it.
 ## Waitlist form
 
 The six forms on the page share one state. `onJoin()` validates name + email, then
-POSTs form-encoded to a Zapier catch hook, which appends a row in Google Sheets.
+POSTs form-encoded to an n8n Cloud webhook, which appends a row in Google Sheets.
 
 Fields sent: `name`, `email`, `source`, `page`, `referrer`, `submitted_at`.
 
-The hook URL lives in `this.WEBHOOK` at the top of the component. It is public by
+The hook URL lives in `this.WEBHOOK` at the top of the component. The n8n workflow
+must be **Active** for the production URL to respond, and the Webhook node needs
+**Options -> Allowed Origins (CORS)** set to `*`. It is public by
 design (the browser calls it) and accepts writes only — the tradeoff is that it can
 be spammed, so add a honeypot or Turnstile if that becomes a problem.
 
