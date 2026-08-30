@@ -13,22 +13,6 @@ const FIELDS = ["name", "email", "source", "page", "referrer", "submitted_at"];
 const MAX_LEN = 500;
 
 module.exports = async (req, res) => {
-  // TEMPORARY diagnostic: GET /api/waitlist?debug=1
-  // Reports only whether the vars are visible to this build, never their
-  // values. Remove once the wiring is confirmed.
-  if (req.method === "GET" && req.query && req.query.debug === "1") {
-    const url = process.env.MAKE_WEBHOOK_URL || "";
-    const key = process.env.MAKE_API_KEY || "";
-    return res.status(200).json({
-      MAKE_WEBHOOK_URL: { set: !!url, length: url.length, host: url ? url.split("/")[2] || "?" : null },
-      MAKE_API_KEY: { set: !!key, length: key.length },
-      // Any MAKE-ish names that did make it through, to catch typos.
-      make_vars_present: Object.keys(process.env).filter(k => /MAKE/i.test(k)).sort(),
-      vercel_env: process.env.VERCEL_ENV || null,
-      commit: (process.env.VERCEL_GIT_COMMIT_SHA || "").slice(0, 7) || null
-    });
-  }
-
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "method not allowed" });
