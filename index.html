@@ -506,7 +506,10 @@ class Component extends DCLogic {
   constructor(props){
     super(props);
     ["progBar","heroSec","heroCanvas","heroTilt","globeRef","rowsRef","counterRef","termRef","waveRef","mrrRef","wordRef","wordWrap","featTag","featQuote","featHandle","featAv","featIdx","featBar","avPool"].forEach(k => this[k] = React.createRef());
-    this.state = { open: {0:true}, fname:"", femail:"", joined:false, err:"" };
+    // Zapier catch hook → Google Sheets. Public by design (it's called from the
+    // browser); it only accepts writes, so exposure just means it can be spammed.
+    this.WEBHOOK = "https://hooks.zapier.com/hooks/catch/24675159/4h6wuxb/";
+    this.state = { open: {0:true}, fname:"", femail:"", joined:false, sending:false, err:"" };
 
     this.featured = [
       { t:"Hey Olly, thank you mate. You've helped me a lot with the development of my project. I am about to launch my app. I'm really happy and proud of it.", h:"@SugSean", tag:"LIFE IMPACT" },
@@ -938,11 +941,27 @@ class Component extends DCLogic {
   }
 
   onJoin(){
+    if(this.state.sending || this.state.joined) return;
     const n = (this.state.fname || "").trim();
     const e = (this.state.femail || "").trim();
     if(!n){ this.setState({ err:"enter your name to join the waitlist" }); return; }
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e)){ this.setState({ err:"enter a valid email address" }); return; }
-    this.setState({ joined:true, err:"" });
+    this.setState({ sending:true, err:"" });
+
+    // Form-encoded keeps this a CORS "simple request" — no preflight, which a
+    // static host can't answer. Zapier's catch hook parses it into fields.
+    const body = new URLSearchParams({
+      name: n, email: e,
+      source: "rosewell-archive",
+      page: (typeof location !== "undefined" ? location.href : ""),
+      referrer: (typeof document !== "undefined" ? document.referrer : ""),
+      submitted_at: new Date().toISOString()
+    });
+
+    fetch(this.WEBHOOK, { method:"POST", body })
+      .then(r => { if(!r.ok) throw new Error("http " + r.status); return r; })
+      .then(() => this.setState({ joined:true, sending:false, err:"" }))
+      .catch(() => this.setState({ sending:false, err:"couldn't reach the server — please try again" }));
   }
 
   renderVals(){
@@ -969,7 +988,7 @@ class Component extends DCLogic {
       onEmail: (e) => this.setState({ femail: e.target.value, err:"" }),
       onJoin: () => this.onJoin(),
       spots: this.state.joined ? "you're in" : "founding spots limited",
-      ctaLabel: this.state.joined ? "You're on the list ✓" : "Join the waitlist",
+      ctaLabel: this.state.joined ? "You're on the list ✓" : (this.state.sending ? "Joining…" : "Join the waitlist"),
       note: this.state.err ? this.state.err : (this.state.joined ? "we'll email you the moment doors open" : "no payment now · founding price locked · cancel anytime later"),
       noteColor: this.state.err ? "#b4462f" : (this.state.joined ? "#1d9d5b" : "#a7a7a1"),
       included:this.included, vids:this.vids
